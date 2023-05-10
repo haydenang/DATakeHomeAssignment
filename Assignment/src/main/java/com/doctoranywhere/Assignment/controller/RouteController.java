@@ -1,12 +1,10 @@
 package com.doctoranywhere.Assignment.controller;
 import com.doctoranywhere.Assignment.model.Task;
-import com.doctoranywhere.Assignment.repository.TaskRepo;
 import com.doctoranywhere.Assignment.service.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.RouteMatcher;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,13 +23,9 @@ public class RouteController {
         return "Hello";
     }
     @GetMapping(path="/tasks/{id}")
-    public String getTask(@PathVariable long id){
+    public ResponseEntity<Task> getTask(@PathVariable long id){
         Optional task = taskService.getTask(id);
-        if (task.isPresent()){
-            Task retrievedTask =  (Task) task.get();
-            return retrievedTask.getTitle();
-        }
-        return "Can't find";
+        return new ResponseEntity<>((Task) task.get(),HttpStatus.OK);
     }
     @PostMapping(path = "/tasks")
     public ResponseEntity<Task> saveTask(@RequestBody @Valid Task task){
@@ -47,9 +41,9 @@ public class RouteController {
         return new ResponseEntity<>(taskService.updateTask(id, task), HttpStatus.OK);
     }
     @DeleteMapping(path = "/tasks/{id}")
-    public String deleteTask(@PathVariable long id){
+    public ResponseEntity<String> deleteTask(@PathVariable long id){
         taskService.deleteTask(id);
-        return "Deleted!";
+        return new ResponseEntity<>("Successfully Deleted",HttpStatus.OK);
     }
 
 }
