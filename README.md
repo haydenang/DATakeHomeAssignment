@@ -36,7 +36,8 @@ If running using IDE(IntelliJ in my case),
 * PUT request will POST if the task with the specified id does not exist in the DB
 * Account for basic Authentication for the API endpoints has already been created with the following details  
 ** username: test@testmail.com  
-** password: password
+** password: password  
+* The in-memory data store used to store the test task data will be uploaded to the DB on application start-up so all subsequent requests to the endpoints are interacting with the data in the DB and not in the in-memory data store.
 
 ## Demo
 https://github.com/haydenang/DATakeHomeAssignment/assets/64570131/a25c16eb-a911-4871-bd3c-b3524e484086
