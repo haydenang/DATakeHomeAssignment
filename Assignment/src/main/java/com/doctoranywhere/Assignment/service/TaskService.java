@@ -39,19 +39,20 @@ public class TaskService {
         return taskRepo.findAll();
     }
 
-    public void uploadTask(Task task){
-        taskRepo.save(task);
+    public Task uploadTask(Task task){
+        return taskRepo.save(task);
     }
 
-    public void updateTask(long id, Task task){
+    public Task updateTask(long id, Task task){
         Optional<Task> retrievedTask = taskRepo.findById(id);
         if(retrievedTask.isPresent()){
             Task toBeUpdatedTask = retrievedTask.get();
             toBeUpdatedTask.setTitle(task.getTitle());
             toBeUpdatedTask.setDescription(task.getDescription());
             toBeUpdatedTask.setCompleted(task.getCompleted());
-            taskRepo.save(toBeUpdatedTask);
+            return taskRepo.save(toBeUpdatedTask);
         }
+        return null;
     }
 
     public void deleteTask(long id){
