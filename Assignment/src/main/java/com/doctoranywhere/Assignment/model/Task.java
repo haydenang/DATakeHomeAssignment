@@ -13,7 +13,7 @@ import org.springframework.validation.annotation.Validated;
 @Getter @Setter @NoArgsConstructor
 public class Task {
     @Id
-    @GeneratedValue(strategy= GenerationType.TABLE)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     @Setter(AccessLevel.PROTECTED)
     private Long id;
     @NotNull(message = "Task Title should not be empty")

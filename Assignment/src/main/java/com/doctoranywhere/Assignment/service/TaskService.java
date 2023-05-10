@@ -1,5 +1,6 @@
 package com.doctoranywhere.Assignment.service;
 
+import com.doctoranywhere.Assignment.exception.ResourceNotFoundException;
 import com.doctoranywhere.Assignment.model.Task;
 import com.doctoranywhere.Assignment.repository.TaskRepo;
 import lombok.Getter;
@@ -15,24 +16,19 @@ import java.util.Optional;
 @Service
 @Getter @Setter
 public class TaskService {
-    private List<Task> taskList;
     private TaskRepo taskRepo;
     @Autowired
     public TaskService(TaskRepo taskRepo){
-        taskList = new ArrayList<>();
         this.taskRepo = taskRepo;
     }
 
     public Optional<Task> getTask(long id){
-        Optional optional = Optional.empty();
-        this.taskList = taskRepo.findAll();
-        for (Task task:taskList) {
-            if (task.getId() == id) {
-                optional = Optional.of(task);
-                return optional;
-            }
+        if(taskRepo.existsById(id)){
+            return taskRepo.findById(id);
         }
-        return optional;
+        else{
+            throw new ResourceNotFoundException("No task with given id "+id);
+        }
     }
 
     public List<Task> getAllTask(){
@@ -52,11 +48,18 @@ public class TaskService {
             toBeUpdatedTask.setCompleted(task.getCompleted());
             return taskRepo.save(toBeUpdatedTask);
         }
-        return null;
+        else{
+            return uploadTask(task);
+        }
     }
 
     public void deleteTask(long id){
-        taskRepo.deleteById(id);
+        if(taskRepo.existsById(id)){
+            taskRepo.deleteById(id);
+        }
+        else{
+            throw new ResourceNotFoundException("No task with given id "+id);
+        }
     }
 
 }
