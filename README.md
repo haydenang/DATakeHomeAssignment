@@ -17,8 +17,7 @@ You will need:
 ### Installing/Executing
 Clone the project
 * After doing so, key in your MySQL username and password in the application.properties folder.  
-<img width="1134" alt="image" src="https://github.com/haydenang/DATakeHomeAssignment/assets/64570131/f059d5b9-4ab9-4996-bbf9-538929c7b691">  
-  
+![image](https://github.com/haydenang/DATakeHomeAssignment/assets/64570131/8d1db564-137b-4f2b-8054-bf8744b8fa46)  
 If running from terminal,  
 * Build the maven project by running
 ```
